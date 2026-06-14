@@ -9,7 +9,7 @@ on:
 jobs:
   apply:
     runs-on: ubuntu-latest
-    environment: production  # <--- AQUÍ ES DONDE SE ACTIVA LA APROBACIÓN MANUAL
+    environment: production
     steps:
       - uses: actions/checkout@v4
       
