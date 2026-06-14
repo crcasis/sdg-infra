@@ -1,0 +1,12 @@
+# .github/workflows/feature-pipeline.yml
+name: Feature Branch CI
+on:
+  push:
+    branches:
+      - 'feature/*'
+
+jobs:
+  run-checks:
+    uses: ./.github/workflows/terraform-ci.yml
+    with:
+      environment: dev # Usamos dev como entorno de referencia para el plan

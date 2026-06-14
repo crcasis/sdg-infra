@@ -1,0 +1,26 @@
+# .github/workflows/prod-pipeline.yml
+name: Prod Pipeline
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/terraform-ci.yml
+    with:
+      environment: prod
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+  
+  # Definimos el job de CD aquí para poder usar la propiedad 'environment'
+  cd:
+    needs: ci
+    uses: ./.github/workflows/terraform-apply.yml
+    with:
+      environment: prod
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}

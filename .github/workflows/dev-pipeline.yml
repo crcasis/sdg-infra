@@ -1,0 +1,17 @@
+# .github/workflows/dev-pipeline.yml
+name: Dev Pipeline
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  ci:
+    uses: ./.github/workflows/terraform-ci.yml
+    with:
+      environment: dev
+  
+  cd:
+    needs: ci
+    uses: ./.github/workflows/terraform-apply.yml
+    with:
+      environment: dev

@@ -1,0 +1,27 @@
+name: 'Slack/Discord Webhook'
+description: 'Envía notificación vía Webhook'
+inputs:
+  webhook-url:
+    description: 'URL del Webhook'
+    required: true
+  status:
+    description: 'Estado del job (success, failure)'
+    required: true
+  message:
+    description: 'Mensaje adicional'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Send Notification
+      shell: bash
+      env:
+        WEBHOOK_URL: ${{ inputs.webhook-url }}
+        STATUS: ${{ inputs.status }}
+        MESSAGE: ${{ inputs.message }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data "{
+          \"text\": \"Pipeline $STATUS: $MESSAGE \nRepo: ${{ github.repository }} \nBranch: ${{ github.ref_name }} \nActor: ${{ github.actor }}\"
+        }" $WEBHOOK_URL

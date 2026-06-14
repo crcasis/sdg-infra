@@ -1,0 +1,35 @@
+name: Reusable Apply
+on:
+  workflow_call:
+    inputs:
+      environment: { required: true, type: string }
+    secrets:
+      GCP_SA_KEY: { required: true }
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: production  # <--- AQUÍ ES DONDE SE ACTIVA LA APROBACIÓN MANUAL
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: GCP Auth
+        uses: ./.github/actions/authentication
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          
+      - uses: hashicorp/setup-terraform@v3
+          
+      - name: Download Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="bucket=sdg-hub-tfstate" \
+            -backend-config="prefix=terraform/state/${{ inputs.environment }}"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan

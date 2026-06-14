@@ -1,0 +1,52 @@
+name: Terraform Analysis and Plan
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      GCP_SA_KEY:
+        required: true
+
+jobs:
+  validate-and-plan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: GCP Auth
+        uses: ./.github/actions/authentication
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="bucket=sdg-hub-tfstate" \
+            -backend-config="prefix=terraform/state/${{ inputs.environment }}"
+
+      - name: Terraform Validate
+        run: terraform validate
+        
+      - name: Run TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: v0.50.0
+      - run: tflint --init && tflint --format compact
+        
+      - name: Run Tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+
+      - name: Terraform Plan
+        run: terraform plan -var-file=env/${{ inputs.environment }}.tfvars -out=tfplan
+
+      - name: Upload Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: tfplan
