@@ -38,9 +38,17 @@ jobs:
         with:
           tflint_version: v0.50.0
       - run: tflint --init && tflint --format compact
+
+      - name: Run Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '1'
         
-      - name: Run Tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
+    #   - name: Run Tfsec
+    #     uses: aquasecurity/tfsec-action@v1.0.3
         # with:
         #     version: v1.28.14
 
