@@ -30,4 +30,4 @@ jobs:
       - name: Ejecutar Infracost
         uses: ./.github/actions/infracost
         with:
-          path: ${{ inputs.path }}
+          path: ${{ inputs.path || '.' }}
