@@ -66,7 +66,7 @@ jobs:
       - name: Notify
         uses: ./.github/actions/notification
         with:
-          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           status: ${{ job.status }}
           message: "Terraform plan and tests executed without errors in ${{ inputs.environment }} environment and commit ${{ github.sha }}"
         continue-on-error: true
