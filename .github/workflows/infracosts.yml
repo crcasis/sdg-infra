@@ -1,0 +1,33 @@
+name: Infracost (GCP Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: 'Ruta del código Terraform'
+        default: '.'
+        required: false
+
+jobs:
+  infracost:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # 1. Autenticación directa en GCP usando el secreto de la KEY
+      - name: GCP Auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_COSTS }}
+
+      # 2. Configurar Infracost
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Ejecutar Infracost
+        uses: ./.github/actions/infracost
+        with:
+          path: ${{ inputs.path }}

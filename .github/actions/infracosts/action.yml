@@ -1,0 +1,26 @@
+name: 'Infracost Comment'
+description: 'Ejecuta Infracost y comenta en el PR'
+
+inputs:
+  path:
+    description: 'Ruta del código Terraform'
+    default: '.'
+    required: false
+  github_token:
+    description: 'GITHUB_TOKEN para comentar en el PR'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Infracost diff
+      shell: bash
+      run: |
+        infracost breakdown --path=${{ inputs.path }} \
+                            --format=json \
+                            --out-file=infracost.json
+        
+        infracost comment github --path=infracost.json \
+                                 --github-token=${{ inputs.github_token }} \
+                                 --pull-request=${{ github.event.pull_request.number }} \
+                                 --behavior=update
