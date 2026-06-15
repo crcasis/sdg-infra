@@ -5,6 +5,7 @@ on:
       environment: { required: true, type: string }
     secrets:
       GCP_SA_KEY: { required: true }
+      WEBHOOK_URL: { required: true }
 
 jobs:
   apply:
