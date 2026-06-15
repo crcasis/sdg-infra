@@ -60,3 +60,10 @@ jobs:
         with:
           name: tfplan
           path: tfplan
+
+      - name: Notify
+        uses: ./.github/actions/notification
+        with:
+          status: ${{ job.status }}
+          message: "Terraform plan and tests executed without errors in ${{ inputs.environment }} environment and commit ${{ github.sha }}"
+        continue-on-error: true
