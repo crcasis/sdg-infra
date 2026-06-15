@@ -9,9 +9,15 @@ jobs:
     uses: ./.github/workflows/terraform-ci.yml
     with:
       environment: dev
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}å
   
   cd:
     needs: ci
     uses: ./.github/workflows/terraform-apply.yml
     with:
       environment: dev
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}å
