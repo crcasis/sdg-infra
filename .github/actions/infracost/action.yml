@@ -17,10 +17,4 @@ runs:
       shell: bash
       run: |
         infracost breakdown --path=${{ inputs.path }} \
-                            --format=json \
-                            --out-file=infracost.json
-        
-        infracost comment github --path=infracost.json \
-                                 --github-token=${{ inputs.github_token }} \
-                                 --pull-request=${{ github.event.pull_request.number }} \
-                                 --behavior=update
+                            --format=table
