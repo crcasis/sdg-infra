@@ -37,6 +37,7 @@ jobs:
       - name: Notify
         uses: ./.github/actions/notification
         with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
           status: ${{ job.status }}
           message: "Terraform apply executed without errors in ${{ inputs.environment }} environment and commit ${{ github.sha }}"
         continue-on-error: true

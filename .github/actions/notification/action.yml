@@ -17,7 +17,7 @@ runs:
     - name: Send Notification
       shell: bash
       env:
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        WEBHOOK_URL: ${{ inputs.webhook-url }}
         STATUS: ${{ inputs.status }}
         MESSAGE: ${{ inputs.message }}
       run: |
