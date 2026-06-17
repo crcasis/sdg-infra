@@ -1,5 +1,5 @@
 module "github_wif" {
-  source = "./modules/github_wif"
+  source = "./modules/wif"
 
   project_id         = var.hub_project_id
   pool_id            = "github-pool"
