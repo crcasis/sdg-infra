@@ -8,9 +8,9 @@ variable "hub_project_id" {
   type = string
 }
 
-variable "fe_project_id" {
-  type = string
-}
+# variable "fe_project_id" {
+#   type = string
+# }
 
 # variable "be_project_id" {
 #   type = string
