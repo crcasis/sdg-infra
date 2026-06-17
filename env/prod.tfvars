@@ -17,6 +17,8 @@ labels = {
 
 }
 
+
+
 ### VPC ###
 vpcs = [
   {
@@ -85,11 +87,6 @@ proxy_subnets = [
 
 service_name = "gc-p-feai"
 image = "gcr.io/google-samples/hello-app:1.0" #"gcr.io/sdg-fe-project/gc-p-feai:latest"
-allow_unauthenticated = false #remove future
 env_vars = {
   "ENV" = "pro"
 }
-bucket_name = "gc-p-feai-documents"
-apps_subnet_self_link = "projects/sdg-fe-project/regions/europe-southwest1/subnetworks/gc-p-feai"
-network_self_link = "projects/sdg-fe-project/global/networks/gc-p-fe-vpc"
-proxy_subnet_self_link = "projects/sdg-fe-project/regions/europe-southwest1/subnetworks/gc-p-feai-proxy"
