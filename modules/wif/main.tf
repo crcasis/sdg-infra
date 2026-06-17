@@ -4,6 +4,14 @@ resource "google_service_account" "github" {
   display_name = "GitHub Actions Service Account"
 }
 
+resource "google_iam_workload_identity_pool" "github" {
+  project                   = var.project_id
+  workload_identity_pool_id = var.pool_id
+
+  display_name = "GitHub Actions Pool"
+  description  = "OIDC Pool for GitHub Actions"
+}
+
 resource "google_iam_workload_identity_pool_provider" "github" {
   project                            = var.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.github.workload_identity_pool_id
