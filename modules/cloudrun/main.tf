@@ -5,8 +5,6 @@ resource "google_cloud_run_v2_service" "fe" {
 
   ingress = "INGRESS_TRAFFIC_ALL"
 
-  deletion_protection = false
-
   labels = var.labels
 
   template {

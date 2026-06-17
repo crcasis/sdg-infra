@@ -9,6 +9,4 @@ module "cloudrun_fe" {
 
   env_vars = var.env_vars
   labels = var.labels
-
-  load_balancer_sa = google_service_account.lb.email
 }
