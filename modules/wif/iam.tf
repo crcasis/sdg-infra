@@ -1,0 +1,11 @@
+resource "google_project_iam_member" "github_compute_admin" {
+  project = var.project_id
+  role    = "roles/compute.admin"
+  member  = "serviceAccount:${google_service_account.github.email}"
+}
+
+resource "google_project_iam_member" "github_sa_user" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.github.email}"
+}
