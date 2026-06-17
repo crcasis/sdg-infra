@@ -8,13 +8,13 @@ variable "hub_project_id" {
   type = string
 }
 
-# variable "fe_project_id" {
-#   type = string
-# }
+variable "fe_project_id" {
+  type = string
+}
 
-# variable "be_project_id" {
-#   type = string
-# }
+variable "be_project_id" {
+  type = string
+}
 
 variable "vpcs" {
   type = list(object({
@@ -45,15 +45,24 @@ variable "proxy_subnets" {
   default = []
 }
 
-# variable "apps_subnet_self_link" {
-#   type = string
-# }
 
-# variable "network_self_link" {
-#   type = string
-# }
+variable "service_name" {
+  type = string
+}
 
-# variable "proxy_subnet_self_link" {
-#   type = string
-# }
+variable "image" {
+  type = string
+}
 
+variable "env_vars" {
+  type = map(string)
+}
+
+variable "labels" {
+  type = map(string)
+}
+
+variable "allow_unauthenticated" {
+  type    = bool
+  default = false
+}
