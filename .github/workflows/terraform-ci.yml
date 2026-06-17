@@ -31,17 +31,6 @@ jobs:
           workload_identity_provider: projects/151708230233/locations/global/workloadIdentityPools/github-pool-pipe/providers/github-provider
           service_account: github-actions@sdg-hub-project.iam.gserviceaccount.com
 
-      - name: Debug identity
-        run: |
-         echo "=== ACCOUNT ==="
-         gcloud config get-value account || true
-
-         echo "=== AUTH LIST ==="
-         gcloud auth list
-
-         echo "=== ACCESS BUCKET ==="
-         gcloud storage ls gs://sdg-hub-tfstate
-
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
