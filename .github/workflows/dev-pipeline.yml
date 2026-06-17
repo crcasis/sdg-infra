@@ -10,7 +10,7 @@ jobs:
     with:
       environment: dev
     secrets:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      # GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}å
   
   cd:
@@ -19,5 +19,5 @@ jobs:
     with:
       environment: dev
     secrets:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      # GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}å
