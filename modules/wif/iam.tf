@@ -44,3 +44,4 @@ resource "google_project_iam_member" "github_sa_admin" {
   role = "roles/iam.serviceAccountAdmin"
 
   member = "serviceAccount:${google_service_account.github.email}"
+}
