@@ -18,8 +18,8 @@ resource "google_project_iam_member" "github_run_admin" {
 
 resource "google_project_iam_member" "github_run_sa_user" {
   project = var.project_id
-  role = "roles/iam.serviceAccountUser"
-  member  = "serviceAccount:${google_service_account.github.email}"
+  role = "roles/iam.workloadIdentityUser"
+  member  = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository/${var.github_repository}"
 }
 
 
