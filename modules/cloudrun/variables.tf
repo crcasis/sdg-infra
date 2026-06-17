@@ -19,10 +19,6 @@ variable "env_vars" {
   default = {}
 }
 
-variable "load_balancer_sa" {
-  type = string
-}
-
 variable "labels" {
   type = map(string)
   default = {}

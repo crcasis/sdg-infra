@@ -1,7 +1,7 @@
 resource "google_cloud_run_v2_service" "fe" {
   name     = var.service_name
   location = var.region
-  project  = var.project_id
+  project  = var.fe_project_id
 
   ingress = "INGRESS_TRAFFIC_ALL"
 
