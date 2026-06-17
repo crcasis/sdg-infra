@@ -46,18 +46,18 @@ variable "proxy_subnets" {
 }
 
 
-variable "service_name" {
-  type = string
-}
+# variable "service_name" {
+#   type = string
+# }
 
-variable "image" {
-  type = string
-}
+# variable "image" {
+#   type = string
+# }
 
-variable "env_vars" {
-  type = map(string)
-}
+# variable "env_vars" {
+#   type = map(string)
+# }
 
-variable "labels" {
-  type = map(string)
-}
+# variable "labels" {
+#   type = map(string)
+# }
