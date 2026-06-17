@@ -5,7 +5,7 @@ resource "google_project_iam_member" "github_compute_admin" {
 }
 resource "google_project_iam_member" "github_compute_storage" {
   project = var.project_id
-  role    = "roles/storage.object.admin"
+  role    = "roles/storage.objectAdmin"
   member  = "serviceAccount:${google_service_account.github.email}"
 }
 
