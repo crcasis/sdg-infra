@@ -61,8 +61,3 @@ variable "env_vars" {
 variable "labels" {
   type = map(string)
 }
-
-variable "allow_unauthenticated" {
-  type    = bool
-  default = false
-}

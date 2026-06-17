@@ -11,5 +11,4 @@ module "cloudrun_fe" {
   labels = var.labels
 
   load_balancer_sa = google_service_account.lb.email
-  allow_unauthenticated = var.allow_unauthenticated
 }
