@@ -90,3 +90,4 @@ image = "gcr.io/google-samples/hello-app:1.0" #"gcr.io/sdg-fe-project/gc-p-feai:
 env_vars = {
   "ENV" = "pro"
 }
+allow_unauthenticated = false
