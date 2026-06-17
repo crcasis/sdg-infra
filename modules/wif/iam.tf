@@ -28,3 +28,19 @@ resource "google_project_iam_member" "github_storage_admin_fe" {
   role = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.github.email}"
 }
+
+resource "google_project_iam_member" "github_wif_admin" {
+  project = var.project_id
+
+  role = "roles/iam.workloadIdentityPoolAdmin"
+
+  member = "serviceAccount:${google_service_account.github.email}"
+}
+
+
+resource "google_project_iam_member" "github_sa_admin" {
+  project = var.project_id
+
+  role = "roles/iam.serviceAccountAdmin"
+
+  member = "serviceAccount:${google_service_account.github.email}"
