@@ -85,7 +85,7 @@ proxy_subnets = [
 
 service_name = "gc-p-feai"
 image = "gcr.io/google-samples/hello-app:1.0" #"gcr.io/sdg-fe-project/gc-p-feai:latest"
-allow_unauthenticated = true #remove future
+allow_unauthenticated = false #remove future
 env_vars = {
   "ENV" = "pro"
 }
