@@ -10,10 +10,10 @@ region = "europe-southwest1"
 labels = {
   environment = "prod"
   managed_by = "terraform"
-  owner = "cristian.casis"
+  owner = "cristiancasis"
   purpose = "sdg-infra"
   created_by = "pipelines"
-  owneremail = "crcasis@gmail.com"
+  owneremail = "crcasisatgmaildotcom"
 
 }
 
