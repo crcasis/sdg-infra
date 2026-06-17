@@ -9,39 +9,39 @@ resource "google_project_iam_member" "github_compute_storage" {
   member  = "serviceAccount:${google_service_account.github.email}"
 }
 
-resource "google_project_iam_member" "github_run_admin" {
-  project = var.project_id
-  role = "roles/run.admin"
-  member  = "serviceAccount:${google_service_account.github.email}"
-}
+# resource "google_project_iam_member" "github_run_admin" {
+#   project = var.project_id
+#   role = "roles/run.admin"
+#   member  = "serviceAccount:${google_service_account.github.email}"
+# }
 
 
-resource "google_project_iam_member" "github_run_sa_user" {
-  project = var.project_id
-  role = "roles/iam.workloadIdentityUser"
-  member  = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository/${var.github_repository}"
-}
+# resource "google_project_iam_member" "github_run_sa_user" {
+#   project = var.project_id
+#   role = "roles/iam.workloadIdentityUser"
+#   member  = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository/${var.github_repository}"
+# }
 
 
-resource "google_project_iam_member" "github_storage_admin_fe" {
-  project = var.project_id
-  role = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.github.email}"
-}
+# resource "google_project_iam_member" "github_storage_admin_fe" {
+#   project = var.project_id
+#   role = "roles/storage.admin"
+#   member  = "serviceAccount:${google_service_account.github.email}"
+# }
 
-resource "google_project_iam_member" "github_wif_admin" {
-  project = var.project_id
+# resource "google_project_iam_member" "github_wif_admin" {
+#   project = var.project_id
 
-  role = "roles/iam.workloadIdentityPoolAdmin"
+#   role = "roles/iam.workloadIdentityPoolAdmin"
 
-  member = "serviceAccount:${google_service_account.github.email}"
-}
+#   member = "serviceAccount:${google_service_account.github.email}"
+# }
 
 
-resource "google_project_iam_member" "github_sa_admin" {
-  project = var.project_id
+# resource "google_project_iam_member" "github_sa_admin" {
+#   project = var.project_id
 
-  role = "roles/iam.serviceAccountAdmin"
+#   role = "roles/iam.serviceAccountAdmin"
 
-  member = "serviceAccount:${google_service_account.github.email}"
-}
+#   member = "serviceAccount:${google_service_account.github.email}"
+# }
