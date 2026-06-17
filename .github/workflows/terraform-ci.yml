@@ -1,4 +1,83 @@
+# name: Terraform Analysis and Plan
+# on:
+#   workflow_call:
+#     inputs:
+#       environment:
+#         required: true
+#         type: string
+#     secrets:
+#       GCP_SA_KEY: { required: true }
+#       WEBHOOK_URL: { required: true }
+
+# jobs:
+#   validate-and-plan:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: GCP Auth
+#         uses: ./.github/actions/authentication
+#         with:
+#           credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+#       - uses: hashicorp/setup-terraform@v3
+
+#       - name: Terraform Init
+#         run: |
+#           terraform init \
+#             -backend-config="bucket=sdg-hub-tfstate" \
+#             -backend-config="prefix=terraform/state/${{ inputs.environment }}"
+
+#       - name: Terraform Validate
+#         run: terraform validate
+        
+#       - name: Run TFLint
+#         uses: terraform-linters/setup-tflint@v4
+#         with:
+#           tflint_version: v0.50.0
+#       - run: tflint --init && tflint --format compact
+
+#       - name: Run Trivy
+#         uses: aquasecurity/trivy-action@master
+#         with:
+#           scan-type: 'config'
+#           scan-ref: '.'
+#           format: 'table'
+#           exit-code: '1'
+        
+#     #   - name: Run Tfsec
+#     #     uses: aquasecurity/tfsec-action@v1.0.3
+#         # with:
+#         #     version: v1.28.14
+
+#       - name: Terraform Plan
+#         run: terraform plan -var-file=env/${{ inputs.environment }}.tfvars -out=tfplan
+
+#       - name: Upload Plan
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: tfplan
+#           path: tfplan
+
+#       - name: Notify
+#         uses: ./.github/actions/notification
+#         with:
+#           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+#           status: ${{ job.status }}
+#           message: "Terraform plan and tests executed without errors in ${{ inputs.environment }} environment and commit ${{ github.sha }}"
+#         continue-on-error: true
+
+
+
+
+
+
+
+
 name: Terraform Analysis and Plan
+
 on:
   workflow_call:
     inputs:
@@ -6,22 +85,26 @@ on:
         required: true
         type: string
     secrets:
-      GCP_SA_KEY: { required: true }
-      WEBHOOK_URL: { required: true }
+      WEBHOOK_URL:
+        required: true
 
 jobs:
   validate-and-plan:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
       - name: GCP Auth
         uses: ./.github/actions/authentication
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      
+          workload_identity_provider: projects/151708230233/locations/global/workloadIdentityPools/github-pool-pipe/providers/github-provider
+          service_account: github-actions@sdg-hub-project.iam.gserviceaccount.com
+
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
@@ -32,28 +115,30 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-        
+
       - name: Run TFLint
         uses: terraform-linters/setup-tflint@v4
         with:
           tflint_version: v0.50.0
-      - run: tflint --init && tflint --format compact
+
+      - name: Execute TFLint
+        run: |
+          tflint --init
+          tflint --format compact
 
       - name: Run Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'config'
-          scan-ref: '.'
-          format: 'table'
+          scan-type: config
+          scan-ref: .
+          format: table
           exit-code: '1'
-        
-    #   - name: Run Tfsec
-    #     uses: aquasecurity/tfsec-action@v1.0.3
-        # with:
-        #     version: v1.28.14
 
       - name: Terraform Plan
-        run: terraform plan -var-file=env/${{ inputs.environment }}.tfvars -out=tfplan
+        run: |
+          terraform plan \
+            -var-file=env/${{ inputs.environment }}.tfvars \
+            -out=tfplan
 
       - name: Upload Plan
         uses: actions/upload-artifact@v4
