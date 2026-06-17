@@ -14,7 +14,6 @@ jobs:
     with:
       environment: prod
     secrets:
-    #   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
   
   # Definimos el job de CD aquí para poder usar la propiedad 'environment'
@@ -24,6 +23,5 @@ jobs:
     with:
       environment: prod
     secrets:
-    #   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
       
