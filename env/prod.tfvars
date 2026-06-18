@@ -86,7 +86,7 @@ proxy_subnets = [
 ## CLOUD RUN ##
 
 service_name = "gc-p-feai"
-image = "gcr.io/google-samples/hello-app:1.0" #"gcr.io/sdg-fe-project/gc-p-feai:latest"
+image = "europe-southwest1-docker.pkg.dev/sdg-hub-project/sdgpoc/gc-p-feai:latest"
 env_vars = {
   "ENV" = "pro"
 }
