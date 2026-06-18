@@ -9,6 +9,14 @@ resource "google_project_iam_member" "github_compute_storage" {
   member  = "serviceAccount:${google_service_account.github.email}"
 }
 
+resource "google_project_iam_member" "cloudrun_artifact_reader" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.github.email}"
+}
+
+
+
 # resource "google_project_iam_member" "github_run_admin" {
 #   project = var.project_id
 #   role = "roles/run.admin"
