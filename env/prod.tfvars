@@ -14,6 +14,7 @@ labels = {
   purpose = "sdg-infra"
   created_by = "pipelines"
   owneremail = "crcasisatgmaildotcom"
+  project   = "ongoing"
 
 }
 
